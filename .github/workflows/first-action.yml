@@ -26,3 +26,10 @@ jobs:
         run: |
           echo "Step-level APP_NAME is $APP_NAME"
           echo "Step-level DEPLOY_ENV is $DEPLOY_ENV"
+      - name: Intentional failure (continue-on-error)
+        continue-on-error: true
+        run: exit 1
+      - name: Step after tolerated failure
+        run: echo "This still runs because previous step was allowed to fail"
+      - name: Intentional failure (stops job)
+        run: exit 1
